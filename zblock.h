@@ -1,0 +1,17 @@
+#ifndef _ZBLOCK_H
+#define _ZBLOCK_H
+
+#include "block.h"
+#include <vector>
+
+class ZBlock: public Block{
+    int curOrientation; // 0 for initial, 1 for 90* cw rotation, 2 for 180* cw rotation, 3 for 270* cw rotation
+    public:
+    ZBlock(std::vector<Cell> positions, Grid * theGrid);
+    char getType() override;
+    void rotateCw();
+    void rotateCcw();
+    // bool isValidRotate(std::vector<Cell>); already part of grid?
+};
+
+#endif
