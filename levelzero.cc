@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include "levelzero.h"
-//#include "block.h"
+#include "block.h"
 
 LevelZero::LevelZero(std::string s1, std::string s2){
 	if (s1 != "") seq1 = new std::ifstream{s1};
