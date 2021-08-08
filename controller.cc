@@ -13,10 +13,11 @@ void Biquadris::run() {
     std::string cmd;
     int x, y;
     int N;
+    int count = 0;                                              //count: number of block placements since last row clear   ~Crystal
     while (getline(cin,cmd)) {
         if(cmd.compare("left")) {
                 // get block in the grid and manipulate it
-            g.block.left();                                     //added this in bc there was just nothing here?? ~Crystal
+            
             if (g.getLevel() == 3) g.block.down();              //new and improved (level 3 heavy)
         }
         else if(cmd.compare("right")) { 
@@ -35,7 +36,9 @@ void Biquadris::run() {
             g.block.cclockwise(); 
             if (g.getLevel() == 3) g.block.down();              //new and improved (level 3 heavy)
         }
-        else if(cmd.compare("drop")) { g.block.right(); }       //does anyone know why "drop" moves the block right?...
+        else if(cmd.compare("drop")) { g.block.right();         //does anyone know why "drop" moves the block right?...
+            count++;                                            //count goes up per dropped block
+        }
         else if(cmd.compare("levelup")) { g.levelUp(); }
         else if(cmd.compare("leveldown")) { g.levelDown(); }
         else if(cmd.compare("norandom file")) {}
@@ -50,6 +53,14 @@ void Biquadris::run() {
         else if(cmd.compare("Z")) {}
         else if(cmd.compare("restart")) { 
             g.reset();
+        }
+        
+        if (g.isRowFull()){
+            while (g.isRowFull()) g.clearRow();                   //added clearing
+            count = 0;
+        }
+        else if (count % 5 == 0 && count > 0) {
+            // drop starblock                                      initializing blocks is nonexistent here so I'll leave this
         }
     }
 }
