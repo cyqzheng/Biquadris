@@ -16,12 +16,26 @@ void Biquadris::run() {
     while (getline(cin,cmd)) {
         if(cmd.compare("left")) {
                 // get block in the grid and manipulate it
+            g.block.left();                                     //added this in bc there was just nothing here?? ~Crystal
+            if (g.getLevel() == 3) g.block.down();              //new and improved (level 3 heavy)
         }
-        else if(cmd.compare("right")) { g.block.right(); }
-        else if(cmd.compare("down")) { g.block.down(); }
-        else if(cmd.compare("clockwise")) { g.block.clockwise(); }
-        else if(cmd.compare("counterclockwise")) { g.block.cclockwise(); }
-        else if(cmd.compare("drop")) { g.block.right(); }
+        else if(cmd.compare("right")) { 
+            g.block.right(); 
+            if (g.getLevel() == 3) g.block.down();              //new and improved (level 3 heavy)
+        }
+        else if(cmd.compare("down")) { 
+            g.block.down(); 
+            if (g.getLevel() == 3) g.block.down();              //new and improved (level 3 heavy)
+        }
+        else if(cmd.compare("clockwise")) { 
+            g.block.clockwise();
+            if (g.getLevel() == 3) g.block.down();              //new and improved (level 3 heavy)
+        }
+        else if(cmd.compare("counterclockwise")) { 
+            g.block.cclockwise(); 
+            if (g.getLevel() == 3) g.block.down();              //new and improved (level 3 heavy)
+        }
+        else if(cmd.compare("drop")) { g.block.right(); }       //does anyone know why "drop" moves the block right?...
         else if(cmd.compare("levelup")) { g.levelUp(); }
         else if(cmd.compare("leveldown")) { g.levelDown(); }
         else if(cmd.compare("norandom file")) {}
