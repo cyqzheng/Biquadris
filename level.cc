@@ -1,6 +1,6 @@
 #include <iostream>
 #include "level.h"
-//#include "block.h"
+#include "block.h"
 
 Block Level::getCurBlock(int s){
 	if (s == 1) return curr1;
