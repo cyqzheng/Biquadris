@@ -1,5 +1,10 @@
 #ifndef __CELL_H__
 #define __CELL_H__
+#include <iostream>
+#include <vector>
+#include "subject.h"
+#include "observer.h"
+//#include "window.h"
 
 class Cell {
     int r, c;
@@ -24,6 +29,11 @@ class Cell {
     //void setCoords(int r, int c, int w, int h, Xwindow * wind);  // Tells me my row and column number.
     // void draw();
     // void undraw();
+
+    void notify(Cell &whoNotified) override;  // My neighbours will call this,
+                                               // to let me know they've been
+                                               // switched.
+    void notifyObservers() override;
 
 };
 

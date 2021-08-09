@@ -29,3 +29,5 @@ void Cell::setType(char t) { type = t; }
 // void Cell::undraw() {
 //   window->fillRectangle(c*width, r*height, width, height, Xwindow::White);
 // }
+
+
