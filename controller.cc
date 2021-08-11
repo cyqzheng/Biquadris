@@ -42,6 +42,24 @@ void Biquadris::run() {
             if(nextBlock == 'i') {
                 IBlock newBlock;
             }
+            if(nextBlock == 'j') {
+                JBlock newBlock;
+            }
+            if(nextBlock == 'l') {
+                LBlock newBlock;
+            }
+            if(nextBlock == 'o') {
+                OBlock newBlock;
+            }
+            if(nextBlock == 's') {
+                SBlock newBlock;
+            }
+            if(nextBlock == 't') {
+                TBlock newBlock;
+            }
+            if(nextBlock == 'z') {
+                ZBlock newBlock;
+            }
         }
         else if(cmd.compare("levelup")) { g.levelUp(); }
         else if(cmd.compare("leveldown")) { g.levelDown(); }
