@@ -7,7 +7,7 @@
 class OBlock: public Block{
     public:
     OBlock(std::vector<Cell> positions, Grid * theGrid);
-    char getType() override;
+    char getType();
     void rotateCw();
     void rotateCcw();
     // bool isValidRotate(std::vector<Cell>); already part of grid?

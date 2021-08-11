@@ -11,7 +11,7 @@ class LevelTwo : public Level{
 	int getLevel() override;
         bool getHeavy() override;
         //Block getNextBlock() override;
-        Block genNext(int s) override;
+        char genNext(int s) override;
 
 };
 

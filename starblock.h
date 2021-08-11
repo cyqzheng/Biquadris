@@ -6,7 +6,7 @@
 class StarBlock: public Block{
     public:
     StarBlock(std::vector<Cell> positions, Grid * theGrid);
-    char getType() override;
+    char getType();
 };
 
 #endif

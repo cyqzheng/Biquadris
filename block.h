@@ -16,8 +16,10 @@ class Block{
     bool extraHeavy;
 
     public:
-    virtual char getType() = 0;
-
+    int r, c;
+    char getType();
+    virtual void rotateCw();
+    virtual void rotateCcw();
     // initial vector of cells must be in top to bottom, left to right order
     // I can create a method to ensure this?
     Block(std::vector<Cell> positions, Grid * theGrid, bool heavy = false, bool extraHeavy = false);

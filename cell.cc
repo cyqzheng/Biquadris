@@ -1,6 +1,6 @@
 #include "cell.h"
 
-Cell::Cell() : type{'e'} {}
+Cell::Cell() : type{'e'}, isBlock{false} {}
 
 int Cell::getRow() const { return r; }
 
@@ -13,6 +13,8 @@ void Cell::setCol(int col) { c = col; }
 char Cell::getType() const { return type; }
 
 void Cell::setType(char t) { type = t; }
+
+bool Cell::getState() const { return isBlock; }
 
 // std::string Cell::getName() const {
 //   std::string res = ""; // get coordinates and return
@@ -30,4 +32,27 @@ void Cell::setType(char t) { type = t; }
 //   window->fillRectangle(c*width, r*height, width, height, Xwindow::White);
 // }
 
+void Cell::notify(Cell & whoNotified) {
+  // toggle the cell
+  if(isBlock) {
+    isBlock = false;
+    //undraw();
+  }
+  else {
+    isBlock = true;
+    //draw();
+  }
+}
 
+void Cell::notifyObservers() {
+  // notifies the observers of the specified subscription type
+  for(std::size_t i = 0; i < observers.size(); i++) {
+      observers[i]->notify(*this);
+  }
+}
+
+std::string Cell::getName() const {
+  std::string res = ""; // get coordinates and return
+  res = '(' + std::to_string(this->r) + ',' + std::to_string(this->c) + ')';
+  return res;
+}

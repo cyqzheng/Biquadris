@@ -8,12 +8,14 @@ using namespace std;
   gridRows = 15;
   gridCols = 11;
   level = 0;
+  score = 0;
 }
 
 Grid::Grid(int r, int c) {
   gridRows = r;
   gridCols = c;
   level = 0;
+  score = 0;
 }
 
 Grid::~Grid() { 
@@ -36,6 +38,7 @@ void Grid::clearGrid() {
    }
    return full;
  }
+
   void Grid::clearRow() {
   //   // set the bottom row to empty
   //   std::vector<Cell> rows = theGrid[0];
@@ -68,6 +71,37 @@ void Grid::clearGrid() {
      }
    }
   }
+
+//  void Grid::update() {
+//     ++score;
+//     vector<vector<bool>> values; // holds the life values of the cells
+//     for(int i = 0; i < gridRows; i++) { // initialize it
+//         values.emplace_back(vector<bool>());
+//         for(int j = 0; j < gridCols; j++) values[i].emplace_back(false);
+//     }
+//     // store the updated life values
+//     for(int i = 0; i < gridRows; i++) {
+//         for(int j = 0; j < gridCols; j++) {
+//             values[i][j] = theGrid[i][j]->updateLife(totalNeighbours(i, j, vec), gen);
+//         }
+//     }
+
+//     // apply the updates
+//     for(int i = 0; i < height; i++) {
+//         for(int j = 0; j < gridCols; j++) {
+//             theGrid[i][j]->setLife(values[i][j]);
+//         }
+//     }
+
+//     // clear values
+//     for(int i = 0; i < gridRows; i++) {
+//         for(int j = 0; j < gridCols; j++) {
+//             values[i].clear();
+//         }
+//     }
+//     values.clear();
+// }
+
   
   int Grid::getLevel() { return level; }
 

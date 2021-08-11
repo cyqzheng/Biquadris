@@ -1,8 +1,6 @@
 #include <iostream>
 #include <string>
 #include "controller.h"
-#include "cell.h"
-
 
 using std::cin;
 using std::getline;
@@ -18,26 +16,32 @@ void Biquadris::run() {
         if(cmd.compare("left")) {
                 // get block in the grid and manipulate it
             
-            if (g.getLevel() == 3) g.block.down();              //new and improved (level 3 heavy)
+            if (g.getLevel() == 3) g.b.downOne();               //new and improved (level 3 heavy)
         }
         else if(cmd.compare("right")) { 
-            g.block.right(); 
-            if (g.getLevel() == 3) g.block.down();              //new and improved (level 3 heavy)
+            g.b.right(); 
+            if (g.getLevel() == 3) g.b.downOne();               //new and improved (level 3 heavy)
         }
         else if(cmd.compare("down")) { 
-            g.block.down(); 
-            if (g.getLevel() == 3) g.block.down();              //new and improved (level 3 heavy)
+            g.b.downOne(); 
+            if (g.getLevel() == 3) g.b.downOne();               //new and improved (level 3 heavy)
         }
         else if(cmd.compare("clockwise")) { 
-            g.block.clockwise();
-            if (g.getLevel() == 3) g.block.down();              //new and improved (level 3 heavy)
+            g.b.rotateCw();
+            if (g.getLevel() == 3) g.b.downOne();               //new and improved (level 3 heavy)
         }
         else if(cmd.compare("counterclockwise")) { 
-            g.block.cclockwise(); 
-            if (g.getLevel() == 3) g.block.down();              //new and improved (level 3 heavy)
+            g.b.rotateCcw(); 
+            if (g.getLevel() == 3) g.b.downOne();              //new and improved (level 3 heavy)
         }
-        else if(cmd.compare("drop")) { g.block.right();         //does anyone know why "drop" moves the block right?...
+        else if(cmd.compare("drop")) { 
+            g.b.drop();                                 //does anyone know why "drop" moves the block right?...
             count++;                                            //count goes up per dropped block
+            this->switchPlayer();
+            char nextBlock = lev.genNext(0);
+            if(nextBlock == 'i') {
+                IBlock newBlock;
+            }
         }
         else if(cmd.compare("levelup")) { g.levelUp(); }
         else if(cmd.compare("leveldown")) { g.levelDown(); }
