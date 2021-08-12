@@ -10,23 +10,24 @@
 class Block{
     protected:
     // vector of cells or pointer to cells?
-    std::vector<Cell> position; 
+    
     Grid * theGrid;
     bool heavy;
     bool extraHeavy;
 
     public:
-    int r, c;
+    int r, c, level;
+    std::vector<Cell *> position; 
     char getType();
     virtual void rotateCw();
     virtual void rotateCcw();
     // initial vector of cells must be in top to bottom, left to right order
     // I can create a method to ensure this?
-    Block(std::vector<Cell> positions, Grid * theGrid, bool heavy = false, bool extraHeavy = false);
+    Block(std::vector<Cell *> positions, Grid * theGrid, int level, bool heavy = false, bool extraHeavy = false);
     virtual ~Block();
 
-    std::vector<Cell> getCells();
-    void setCells(std::vector<Cell> newcells);
+    std::vector<Cell *> getCells();
+    void setCells(std::vector<Cell *> newcells);
 
     bool getHeavy();
     void setHeavy();

@@ -2,6 +2,7 @@
 #define LIFEGAME_H_
 #include <iostream>
 #include <vector>
+#include <memory>
 #include "cell.h"
 #include "grid.h"
 #include "controller.h"
@@ -18,6 +19,7 @@
 #include "sblock.h"
 #include "tblock.h"
 #include "zblock.h"
+#include "block.h"
 
 class Biquadris {
   // Fill in this class with your implementation
@@ -25,17 +27,22 @@ class Biquadris {
   int score;
   int hiScore;
   int player;
-  LevelZero lev;
+  LevelZero lev{};
+  bool lose1;
+  bool lose2;
 
   // You may build other classes and modules as well
-  Grid g;
+  Grid g1{}; // for player 1
+  Grid g2{}; // for player 2
   public:
-  Biquadris(int width, int height);
+  Biquadris();
+  Biquadris(int width=11, int height=18);
   void run();
   int getCurScore();
   int getHighScore();
   void restartGame();
   void switchPlayer();
+  std::shared_ptr<Block> genNext(char c);
 };
 
 #endif

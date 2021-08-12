@@ -1,6 +1,6 @@
 #include "oblock.h"
 
-OBlock::OBlock(std::vector<Cell> positions, Grid * theGrid): Block(positions, theGrid){}
+OBlock::OBlock(std::vector<Cell *> positions, Grid * theGrid, int level): Block(positions, theGrid, level){}
 
 char OBlock::getType(){
     return 'O';

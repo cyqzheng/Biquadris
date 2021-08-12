@@ -1,6 +1,7 @@
 #include "cell.h"
+#include <algorithm>
 
-Cell::Cell() : type{'e'}, isBlock{false} {}
+Cell::Cell(int r, int c) : type{'e'}, r{r}, c{c} {}
 
 int Cell::getRow() const { return r; }
 
@@ -15,6 +16,34 @@ char Cell::getType() const { return type; }
 void Cell::setType(char t) { type = t; }
 
 bool Cell::getState() const { return isBlock; }
+
+void Cell::setBlock(std::shared_ptr<Block> ablock) { 
+  if (isBlock){ // check if score issues occur here
+    remBlock();
+  }
+  thisblock = ablock; 
+  // make block point to cell if it wasn't already
+  bool exists = false;
+  for (auto b : ablock->position){
+    if (b == this) exists = true;
+  }
+  if (!exists){
+    ablock->position.push_back(this);
+  }
+  isBlock = true;
+}
+
+int Cell::remBlock() { 
+  int addscore = 0;
+  if (isBlock){ // if a block used to exists, detach cell from its positions
+    thisblock->position.erase(std::remove(thisblock->position.begin(), thisblock->position.end(), this), thisblock->position.end());
+    if (thisblock->position.size()==0){
+      addscore = (thisblock->level+1)*(thisblock->level+1);
+    }
+  }
+  isBlock = false; 
+  return addscore;
+}
 
 // std::string Cell::getName() const {
 //   std::string res = ""; // get coordinates and return

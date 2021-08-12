@@ -5,7 +5,7 @@
 
 class StarBlock: public Block{
     public:
-    StarBlock(std::vector<Cell> positions, Grid * theGrid);
+    StarBlock(std::vector<Cell *> positions, Grid * theGrid, int level);
     char getType();
 };
 
