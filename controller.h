@@ -31,15 +31,20 @@ class Biquadris {
   int score;
   int hiScore;
   int player;
+  
   std::shared_ptr<Level> lev1;
   std::shared_ptr<Level> lev2;
   bool lose1 = false;
   bool lose2 = false;
   std::shared_ptr<TextDisplay> td;
   std::shared_ptr<Graphics> window;
+  bool seqfile = false;
+  std::string f;
 
   // You may build other classes and modules as well
   public:
+  int seed;
+  std::string f1, f2;
   bool graphics = true;
   Grid g1{}; // for player 1
   Grid g2{}; // for player 2

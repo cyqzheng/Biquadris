@@ -6,23 +6,20 @@
 #include "iblock.h"
 
 LevelZero::LevelZero(std::string s1, std::string s2){
-	if (s1 != "") seq1 = new std::ifstream{s1};
+	if (s1 != "") seq1 = std::make_shared<std::ifstream>(s1);
 	if (!*seq1) std::cerr<<"Failed sequence1 txt to ifstream"<<std::endl;
-	if (s2 != "") seq2 = new std::ifstream{s2};
+	if (s2 != "") seq2 = std::make_shared<std::ifstream>(s2);
 	if (!*seq2) std::cerr<<"Failed sequence2 txt to ifstream"<<std::endl;
 }
 
-LevelZero::~LevelZero(){
-	delete seq1;
-	delete seq2;
-}
+LevelZero::~LevelZero(){}
 
 int LevelZero::getLevel(){return 0;}
 bool LevelZero::getHeavy(){return false;}
 //Block LevelZero::getNextBlock();
 char LevelZero::genNext(int s){
 	std::string newBlock;
-	std::istream *seq;
+	std::shared_ptr<std::istream> seq;
 	if (s == 1) seq = seq1;
 	else seq = seq2;
 	char nextBlock = 'e';

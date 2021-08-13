@@ -7,7 +7,14 @@ class Block;
 class Level { 
 	std::shared_ptr<Block> curr1; //remember the constructor needs to update curr1 or curr2 after calling genNext!
 	std::shared_ptr<Block> curr2;
+
 	public:
+
+	bool setseed = false;
+	int seed = 0;
+	bool random = true;
+    std::string f = "sequence1.txt";
+
 	Level();
 	virtual int getLevel() = 0;
 	virtual bool getHeavy() = 0;

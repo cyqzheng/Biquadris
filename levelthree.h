@@ -3,10 +3,12 @@
 
 #include <fstream>
 #include <vector>
+#include <string>
 #include "level.h"
 class Block;
 
 class LevelThree : public Level{
+        std::shared_ptr<std::istream> seq;
         public:
         //LevelZero();
         //~LevelZero();

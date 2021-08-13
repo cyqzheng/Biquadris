@@ -22,6 +22,7 @@ void Biquadris::run() {
     bool extrah1 = false;
     bool extrah2 = false;
     int multiplier;
+    std::shared_ptr<std::ifstream>seq;
 
     
     player = 1;
@@ -38,7 +39,24 @@ void Biquadris::run() {
     td->showText(&g1, &g2);
     if (graphics) window->showWindow(&g1, &g2);
 
-    while (getline(cin,cmd)) {
+    if (!seqfile) cin >> cmd;
+    else{
+        seq = std::make_shared<std::ifstream>(f);
+        char nextBlock = 'e';
+        std::string newcmd;
+	    seq->exceptions(std::ios::eofbit|std::ios::failbit);
+        try{
+			*seq >> newcmd;
+            cmd = newcmd;
+        }
+        catch(std::ios_base::failure&){
+            seqfile = false; // done going through file
+            std::cout << "Seq file complete. Please input more commands: \n";
+            cin >> cmd;
+        }
+    }
+
+    while (cin) {
         int i = 0;
         while(cmd[i] >= 0 && cmd[i] <= 9) {
             multiplier = multiplier * 10 + (cmd[i] - '0');
@@ -249,14 +267,42 @@ void Biquadris::run() {
             }
             updateLevel();
         }
-        else if(!cmd.compare("norandom file")) {
+        else if(!cmd.compare("norandom")) {
+            std::string nextword;
+            cin >> nextword;
+            std::string s;
+            cin >> s;
+            if (player == 1){
+                if (g1.level>=3){
+                    lev1->random = false;
+                    lev1->f = s;
+                }
+                
+            }
+            if (player == 2){
+                if (g2.level>=3){
+                    lev2->random = false;
+                    lev2->f = s;
+                }
+                
+            }
             //std::string s1 = std::ifstream{file};
         }
         else if(!cmd.compare("random")) {
             // set random bool variable to turn randomness on and off
+            if (player == 1){
+                lev1->random = true;
+            }
+            else{
+                lev2->random = true;
+            }
         }
-        else if(!cmd.compare("sequence file")) {
+        else if(!cmd.compare("sequence")) {
+            std::string nextword;
+            cin >> nextword; // should be "file"
             // get file name and then set the new file sequence in Level
+            cin >> f;
+            seqfile = true;
         }
         else if(!cmd.compare("I")) {
             if (player == 1){
@@ -380,6 +426,24 @@ void Biquadris::run() {
         
         td->showText(&g1, &g2);
         if (graphics) window->showWindow(&g1, &g2);
+
+        // get next command
+        if (!seqfile) cin >> cmd;
+        else{
+            seq = std::make_shared<std::ifstream>(f);
+            char nextBlock = 'e';
+            std::string newcmd;
+            seq->exceptions(std::ios::eofbit|std::ios::failbit);
+            try{
+                *seq >> newcmd;
+                cmd = newcmd;
+            }
+            catch(std::ios_base::failure&){
+                seqfile = false; // done going through file
+                std::cout << "Seq file complete. Please input more commands: \n";
+                cin >> cmd; // get from co
+            }
+        }
     }
 }
 
@@ -527,6 +591,15 @@ void Biquadris::switchPlayer() {
 void Biquadris::updateLevel(){
     if (player == 1){
         if (g1.getLevel()==0){
+            if (f1!="" && f2 !=""){
+                lev1 = std::make_shared<LevelZero>(f1, f2);
+            }
+            else if (f1!=""){
+                lev1 = std::make_shared<LevelZero>(f1);
+            }
+            else if (f2!=""){
+                lev1 = std::make_shared<LevelZero>("sequence1.txt",f2);
+            }
             lev1 = std::make_shared<LevelZero>();
         }
         else if (g1.getLevel()==1){
@@ -544,6 +617,15 @@ void Biquadris::updateLevel(){
     }
     else if (player == 2){
         if (g2.getLevel()==0){
+            if (f1!="" && f2 !=""){
+                lev2 = std::make_shared<LevelZero>(f1, f2);
+            }
+            else if (f1!=""){
+                lev2 = std::make_shared<LevelZero>(f1);
+            }
+            else if (f2!=""){
+                lev2 = std::make_shared<LevelZero>("sequence1.txt",f2);
+            }
             lev2 = std::make_shared<LevelZero>();
         }
         else if (g2.getLevel()==1){

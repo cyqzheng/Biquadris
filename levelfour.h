@@ -7,6 +7,7 @@
 class Block;
 
 class LevelFour : public Level{
+        std::shared_ptr<std::istream> seq;
         public:
         //LevelZero();
         //~LevelZero();
