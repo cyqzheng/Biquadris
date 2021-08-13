@@ -111,6 +111,7 @@ void Graphics::showWindow(Grid * g1, Grid * g2){
                 window->fillRectangle(j*w+space+rows*w, i*w+header, w, w, Xwindow::Black);
             }
         }
+        //cout << endl;
     }
 
     int k1=0;
