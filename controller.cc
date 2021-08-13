@@ -5,7 +5,7 @@
 using std::cin;
 using std::getline;
 
-Biquadris::Biquadris(){}
+//Biquadris::Biquadris(){}
 Biquadris::Biquadris(int width, int height) : width{width}, height{height} {}
 
 void Biquadris::run() {
@@ -16,7 +16,7 @@ void Biquadris::run() {
     int count2 = 0;
 
     while (getline(cin,cmd)) {
-        if(cmd.compare("left")) {
+        if(!cmd.compare("left")) {
             // get block in the grid and manipulate it
             if(player==1){
                 g1.b->left();
@@ -28,7 +28,7 @@ void Biquadris::run() {
             }
             
         }
-        else if(cmd.compare("right")) { 
+        else if(!cmd.compare("right")) { 
             
             if(player==1){
                 g1.b->right();
@@ -39,7 +39,7 @@ void Biquadris::run() {
                 if (g2.getLevel() == 3) g2.b->downOne();               //new and improved (level 3 heavy)
             }
         }
-        else if(cmd.compare("down")) { 
+        else if(!cmd.compare("down")) { 
             if(player==1){
                 g1.b->downOne();
                 if (g1.getLevel() == 3) g1.b->downOne();               //new and improved (level 3 heavy)
@@ -49,7 +49,7 @@ void Biquadris::run() {
                 if (g2.getLevel() == 3) g2.b->downOne();               //new and improved (level 3 heavy)
             }
         }
-        else if(cmd.compare("clockwise")) { 
+        else if(!cmd.compare("clockwise")) { 
 
             if(player==1){
                 g1.b->rotateCw();
@@ -60,7 +60,7 @@ void Biquadris::run() {
                 if (g2.getLevel() == 3) g2.b->downOne();               //new and improved (level 3 heavy)
             }
         }
-        else if(cmd.compare("counterclockwise")) { 
+        else if(!cmd.compare("counterclockwise")) { 
             if(player==1){
                 g1.b->rotateCcw();
                 if (g1.getLevel() == 3) g1.b->downOne();               //new and improved (level 3 heavy)
@@ -70,7 +70,7 @@ void Biquadris::run() {
                 if (g2.getLevel() == 3) g2.b->downOne();               //new and improved (level 3 heavy)
             }
         }
-        else if(cmd.compare("drop")) { 
+        else if(!cmd.compare("drop")) { 
             if(player==1){
                 g1.b->drop();
                 count1++;
@@ -91,7 +91,7 @@ void Biquadris::run() {
             
             this->switchPlayer();
         }
-        else if(cmd.compare("levelup")) { 
+        else if(!cmd.compare("levelup")) { 
             if (player==1){
                 g1.levelUp();
             }
@@ -99,7 +99,7 @@ void Biquadris::run() {
                 g2.levelUp();
             }
         }
-        else if(cmd.compare("leveldown")) { 
+        else if(!cmd.compare("leveldown")) { 
             if (player==1){
                 g1.levelDown();
             }
@@ -107,17 +107,17 @@ void Biquadris::run() {
                 g2.levelDown();
             }
         }
-        else if(cmd.compare("norandom file")) {}
-        else if(cmd.compare("random")) {}
-        else if(cmd.compare("sequence file")) {}
-        else if(cmd.compare("I")) {} // for debugging, changes the block to the specified type
-        else if(cmd.compare("J")) {}
-        else if(cmd.compare("L")) {}
-        else if(cmd.compare("O")) {}
-        else if(cmd.compare("S")) {}
-        else if(cmd.compare("T")) {}
-        else if(cmd.compare("Z")) {}
-        else if(cmd.compare("restart")) { 
+        else if(!cmd.compare("norandom file")) {}
+        else if(!cmd.compare("random")) {}
+        else if(!cmd.compare("sequence file")) {}
+        else if(!cmd.compare("I")) {} // for debugging, changes the block to the specified type
+        else if(!cmd.compare("J")) {}
+        else if(!cmd.compare("L")) {}
+        else if(!cmd.compare("O")) {}
+        else if(!cmd.compare("S")) {}
+        else if(!cmd.compare("T")) {}
+        else if(!cmd.compare("Z")) {}
+        else if(!cmd.compare("restart")) { 
             if (player==1){
                 g1.reset();
             }
@@ -266,4 +266,42 @@ int Biquadris::getHighScore() { return hiScore; }
 void Biquadris::switchPlayer() { 
     if(player == 1) player = 2;
     else player = 1;
+}
+
+// main function where argc is the number of command line arguments, argv is the arguments
+int main(int argc, char **argv) {
+	int seed;
+    int startingLevel;
+
+    Biquadris game;
+    
+	// we loop through the arguments
+	for(int i = 1; i < argc; i++) {
+		// get the next flag
+		std::string flag = argv[i];
+		// if it is the -c flag we need to get the indices
+		if(!flag.compare("text")) {
+			game.g1.noGraphics = false;
+            game.g2.noGraphics = false;
+            game.run();
+		}
+		// if its the -d flag
+		else if (!flag.compare("seed")) {
+			// set the d (and f) flag to true as d and f must be used together
+            cin >> seed;
+			srand(seed);
+            game.run();
+		}
+		// if it is the d flag
+		else if(!flag.compare("startlevel")) {
+            cin >> startingLevel;
+            game.g1.level = startingLevel;
+            game.g2.level = startingLevel;
+		}
+		// else it must be the input and/or output file paths
+		else {
+			game.run();
+			break;
+		}
+	}
 }

@@ -32,10 +32,10 @@ class Biquadris {
   bool lose2;
 
   // You may build other classes and modules as well
+  public:
   Grid g1{}; // for player 1
   Grid g2{}; // for player 2
-  public:
-  Biquadris();
+  //Biquadris();
   Biquadris(int width=11, int height=18);
   void run();
   int getCurScore();

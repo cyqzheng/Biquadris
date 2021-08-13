@@ -11,7 +11,6 @@ class Grid {
   
   int gridRows;    // Number of rows in the grid.
   int gridCols;    // Number of columns in the grid.
-  int level;
   // TextDisplay *td; // The text display.
   // Add private members, if necessary.
   // Xwindow *window;
@@ -19,8 +18,10 @@ class Grid {
   void clearGrid();   // Frees the grid.
 
  public:
+ int level = 0;
   int score = 0;
   int highscore = 0;
+  bool noGraphics = true;
   std::vector<std::vector<Cell>> theGrid;  // The actual grid.
   std::shared_ptr<Block> b;
   std::shared_ptr<Block> nextb;
