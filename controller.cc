@@ -8,6 +8,7 @@ using std::getline;
 //Biquadris::Biquadris(){}
 Biquadris::Biquadris(int width, int height) : width{width}, height{height} {
     td = std::make_shared<TextDisplay>(width, height);
+    window = std::make_shared<Graphics>(width, height);
     g1.player = 1;
     g2.player = 2;
     lev1 = std::make_shared<LevelZero>();
@@ -23,15 +24,18 @@ void Biquadris::run() {
 
     
     player = 1;
+    updateLevel();
     g1.b = genNext(lev1->genNext(player));
     g1.nextb = genNext(lev1->genNext(player));
 
     player = 2;
+    updateLevel();
     g2.b = genNext(lev2->genNext(player));
     g2.nextb = genNext(lev2->genNext(player));
 
     player = 1;
     td->showText(&g1, &g2);
+    if (graphics) window->showWindow(&g1, &g2);
 
     while (getline(cin,cmd)) {
         if(!cmd.compare("left")) {
@@ -362,6 +366,7 @@ void Biquadris::run() {
         }
         
         td->showText(&g1, &g2);
+        if (graphics) window->showWindow(&g1, &g2);
     }
 }
 

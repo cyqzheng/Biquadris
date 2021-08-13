@@ -22,6 +22,7 @@
 #include "block.h"
 #include "starblock.h"
 #include "textdisplay.h"
+#include "graphics.h";
 
 
 class Biquadris {
@@ -35,9 +36,11 @@ class Biquadris {
   bool lose1 = false;
   bool lose2 = false;
   std::shared_ptr<TextDisplay> td;
+  std::shared_ptr<Graphics> window;
 
   // You may build other classes and modules as well
   public:
+  bool graphics = true;
   Grid g1{}; // for player 1
   Grid g2{}; // for player 2
   //Biquadris();

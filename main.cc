@@ -18,8 +18,7 @@ int main(int argc, char **argv) {
 		std::string flag = argv[i];
 		// if it is the -c flag we need to get the indices
 		if(!flag.compare("text")) {
-			game.g1.noGraphics = false;
-            game.g2.noGraphics = false;
+			game.graphics = false;
 		}
 		// if its the -d flag
 		else if (!flag.compare("seed")) {

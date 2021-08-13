@@ -52,7 +52,7 @@ int ctoi (char c){
     }
 }
 
-void Graphics::showText(Grid * g1, Grid * g2){
+void Graphics::showWindow(Grid * g1, Grid * g2){
 
     std::string p1level = "Level: " + std::to_string(g1->getLevel());
     std::string p2level = "Level: " + std::to_string(g2->getLevel());

@@ -20,7 +20,7 @@ class Graphics{
     Graphics(int rows, int columns);
     int totalheight();
     int totalwidth();
-    void showText(Grid * g1, Grid * g2);
+    void showWindow(Grid * g1, Grid * g2);
 
     ~Graphics();
 
