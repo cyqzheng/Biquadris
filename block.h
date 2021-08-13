@@ -19,7 +19,6 @@ class Block{
 
     int level;
     std::vector<Cell *> position; 
-    char getType();
     virtual void rotateCw() = 0;
     virtual void rotateCcw() = 0;
     // initial vector of cells must be in top to bottom, left to right order
@@ -29,6 +28,7 @@ class Block{
 
     std::vector<Cell *> getCells();
     void setCells(std::vector<Cell *> newcells);
+    virtual char getType() = 0;
 
     bool getHeavy();
     void setHeavy();

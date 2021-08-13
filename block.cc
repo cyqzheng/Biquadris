@@ -2,8 +2,14 @@
 #include "grid.h"
 #include "cell.h"
 
+#include <iostream>
+
 Block::Block(std::vector<Cell *> positions, Grid * theGrid, int level, bool heavy, bool extraHeavy)
-: position{positions}, theGrid{theGrid}, level{level}, heavy{heavy}, extraHeavy{extraHeavy} {}
+: position{positions}, theGrid{theGrid}, level{level}, heavy{heavy}, extraHeavy{extraHeavy} {
+    if (level>=3){
+        heavy = true;
+    }
+}
 
 Block::~Block(){}
 
@@ -33,7 +39,10 @@ bool Block::downOne(){
     // call a function in cell or grid to check if the cells below are available
     std::vector<Cell *> nextp;
     for(std::size_t i=0; i<position.size(); ++i){
-        nextp.push_back(theGrid->getCell(position[i]->getRow()-1, position[i]->getCol()));
+        if (position[i]->getRow()+1 >= theGrid->getRows()){
+            return false;
+        }
+        nextp.push_back(theGrid->getCell(position[i]->getRow()+1, position[i]->getCol()));
     }
     if(theGrid->isValidRotate(nextp)==false){
         return false;
@@ -47,6 +56,9 @@ bool Block::left(){
     // call a function in cell or grid to check if the cells to the left are available
     std::vector<Cell *> nextp;
     for(std::size_t i=0; i<position.size(); ++i){
+        if (position[i]->getCol()-1 < 0){
+            return false;
+        }
         nextp.push_back(theGrid->getCell(position[i]->getRow(), position[i]->getCol()-1));
     }
     if(theGrid->isValidRotate(nextp)==false){
@@ -62,6 +74,9 @@ bool Block::right(){
     // call a function in cell or grid to check if the cells to the right are available
     std::vector<Cell *> nextp;
     for(std::size_t i=0; i<position.size(); ++i){
+        if (position[i]->getCol()+1 >= theGrid->getCols()){
+            return false;
+        }
         nextp.push_back(theGrid->getCell(position[i]->getRow(), position[i]->getCol()+1));
     }
     if(theGrid->isValidRotate(nextp)==false){
@@ -73,7 +88,7 @@ bool Block::right(){
     return true;
 }
 void Block::drop(){
-    bool avail = false;
+    bool avail = true;
     // call availability function
     while(avail){
         avail = downOne();

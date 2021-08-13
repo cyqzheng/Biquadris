@@ -12,7 +12,7 @@ class Block;
 class Cell : public Observer, public Subject {
     int r, c;
     char type;
-    bool isBlock = false;
+    
     
     // GRAPHICS?
     // int width, height;
@@ -22,6 +22,7 @@ class Cell : public Observer, public Subject {
 
     public:
     std::shared_ptr<Block> thisblock; // points to a block if isBlock is true
+    bool isBlock = false;
     Cell(int r, int c);  // Default constructor
 
     int getRow() const; // Returns the row of the cell

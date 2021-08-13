@@ -23,6 +23,7 @@ class Grid {
   int highscore = 0;
   int player = 0;
   bool noGraphics = true;
+  bool blind = false;
   std::vector<std::vector<Cell>> theGrid;  // The actual grid.
   std::shared_ptr<Block> b;
   std::shared_ptr<Block> nextb;
@@ -30,6 +31,7 @@ class Grid {
   Grid(int r, int c);
   ~Grid();
   
+  void placeBlock();
   bool isValidRotate(std::vector<Cell *> newpos);
   int remFullRows(); // returns number of removed rows
   bool isRowFull(int row) const;
@@ -40,6 +42,8 @@ class Grid {
   Cell * getCell(int r, int c);
   void levelUp();
   void levelDown();
+  int getRows();
+  int getCols();
   //void updateScore(int rowsCleared);
   // void putBlock(int, int, Block);
   // void update(); // updates to the next level

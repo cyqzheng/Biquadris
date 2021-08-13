@@ -2,7 +2,9 @@
 #include "block.h"
 #include <algorithm>
 
-Cell::Cell(int r, int c) : type{'e'}, r{r}, c{c} {}
+Cell::Cell(int r, int c) : type{'e'}, r{r}, c{c} {
+  isBlock = false;
+}
 
 int Cell::getRow() const { return r; }
 
@@ -32,6 +34,7 @@ void Cell::setBlock(std::shared_ptr<Block> ablock) {
     ablock->position.push_back(this);
   }
   isBlock = true;
+  type = ablock->getType();
 }
 
 int Cell::remBlock() { 

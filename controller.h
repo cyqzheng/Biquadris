@@ -20,6 +20,9 @@
 #include "tblock.h"
 #include "zblock.h"
 #include "block.h"
+#include "starblock.h"
+#include "textdisplay.h"
+
 
 class Biquadris {
   // Fill in this class with your implementation
@@ -27,9 +30,11 @@ class Biquadris {
   int score;
   int hiScore;
   int player;
-  LevelZero lev{};
-  bool lose1;
-  bool lose2;
+  std::shared_ptr<Level> lev1;
+  std::shared_ptr<Level> lev2;
+  bool lose1 = false;
+  bool lose2 = false;
+  std::shared_ptr<TextDisplay> td;
 
   // You may build other classes and modules as well
   public:
@@ -42,6 +47,7 @@ class Biquadris {
   int getHighScore();
   void restartGame();
   void switchPlayer();
+  void updateLevel();
   std::shared_ptr<Block> genNext(char c);
 };
 

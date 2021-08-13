@@ -10,12 +10,15 @@ using namespace std;
   gridCols = 11;
   level = 0;
   score = 0;
+  
+  
 
   // create the grid of cells
   for (int i=0; i<gridRows; ++i){
     theGrid.push_back(std::vector<Cell>());
     for (int j=0; j<gridCols; ++j){
       theGrid[i].push_back(Cell{i,j});
+      theGrid[i][j].isBlock = false;
     }
   }
 }
@@ -24,7 +27,13 @@ using namespace std;
 Grid::~Grid() { 
   theGrid.clear(); // clear all elements in the vector
   //delete td; // delete the pointer
+}
+
+void Grid::placeBlock(){
+  for (auto c : b->position){
+    c->setBlock(b);
   }
+}
 
 void Grid::clearGrid() { 
   theGrid.clear(); // clear all elements in the vector
@@ -38,10 +47,10 @@ int Grid::remFullRows(){
   int num=0;
   for (int i=0; i<gridRows; ++i){
     if(isRowFull(i)){
-      while(isRowFull(i)){
+      //while(isRowFull(i)){
         clearRow(i);
         ++num;
-      }
+      //}
     }
   }
   if (num!=0) score += (level + num)*(level+num);
@@ -52,11 +61,11 @@ int Grid::remFullRows(){
  bool Grid::isRowFull(int row) const {
    if (row >= gridRows) return false;
    std::vector<Cell> rows = theGrid[row];
-   bool full = true;
+
    for(int i = 0; i < gridCols; i++) {
-     if(rows[i].getType() == 'e') full = false;
+     if(!rows[i].getState()) return false;
    }
-   return full;
+   return true;
  }
 
 void Grid::clearRow(int row) {
@@ -76,20 +85,23 @@ void Grid::clearRow(int row) {
        if (theGrid[i-1][j].getState()){ // if a block exists in row above
          theGrid[i][j].setBlock(theGrid[i-1][j].thisblock); // replace it
        }
+       else{
+         theGrid[i][j].remBlock();
+       }
      }
    }
    //reset top row
    for (int j=0; j < gridCols; ++j){
      theGrid[0][j].remBlock();
      theGrid[0][j].setType('e');
-   }
   }
+}
 
   bool Grid::isGameOver() {
     std::vector<Cell> topRow = theGrid[3];
     int counter = 0;
     for(int i = 0; i < gridCols; i++) {
-      if(topRow[i].getType() == 'e') return true;
+      if(topRow[i].getState()) return true; // top row contains a block
     }
     return false;
   }
@@ -101,10 +113,15 @@ void Grid::clearRow(int row) {
        theGrid[i][j].remBlock(); //remove the block
      }
    }
+   level = 0;
+   score = 0;
   }
 
 bool Grid::isValidRotate(std::vector<Cell *> newpos){
   for (auto p: newpos){
+    if (p->getRow()>gridRows || p->getCol() > gridCols || p->getRow() < 0 || p->getCol() < 0){
+      return false;
+    }
     if(theGrid[p->getRow()][p->getCol()].getState()){
       return false;
     }
@@ -112,12 +129,20 @@ bool Grid::isValidRotate(std::vector<Cell *> newpos){
   return true;
 }
 
+int Grid::getRows(){
+  return gridRows;
+}
+
+int Grid::getCols(){
+  return gridCols;
+}
+
   
   Cell * Grid::getCell(int r, int c) { return &theGrid[r][c]; }
 
   int Grid::getLevel() { return level; }
 
-  void Grid::levelUp() { ++level; }
+  void Grid::levelUp() { if (level<4) ++level; }
 
-  void Grid::levelDown() { --level; }
+  void Grid::levelDown() { if (level>0) --level; }
 

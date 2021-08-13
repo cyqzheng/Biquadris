@@ -2,13 +2,11 @@
 #define __TEXTDISPLAY_H__
 #include <iostream>
 #include <vector>
-#include "observer.h"
-#include "subject.h"
 
 class Grid;
 class Cell;
 
-class TextDisplay: public Observer {
+class TextDisplay{
   std::vector<std::vector<char>> play1;
   std::vector<std::vector<char>> play2;
   const int rows;
