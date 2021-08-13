@@ -10,7 +10,7 @@
 using namespace std;
 
 Graphics::Graphics(int rows, int columns) : rows{rows},  cols{columns}{
-    window = std::make_unique<Xwindow>(cols*w*2+space, rows*w+header+4*w);
+    window = std::make_unique<Xwindow>(rows*w*2+space, cols*w+header+4*w);
 }
 
 Graphics::~Graphics(){}
@@ -111,7 +111,7 @@ void Graphics::showWindow(Grid * g1, Grid * g2){
                 window->fillRectangle(j*w+space+rows*w, i*w+header, w, w, Xwindow::Black);
             }
         }
-        cout << endl;
+        //cout << endl;
     }
 
     int k1=0;
