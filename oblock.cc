@@ -1,4 +1,6 @@
 #include "oblock.h"
+#include "grid.h"
+#include "cell.h"
 
 OBlock::OBlock(std::vector<Cell *> positions, Grid * theGrid, int level): Block(positions, theGrid, level){}
 

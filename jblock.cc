@@ -1,4 +1,6 @@
 #include "jblock.h"
+#include "grid.h"
+#include "cell.h"
 
 JBlock::JBlock(std::vector<Cell *> positions, Grid * theGrid, int level): Block(positions, theGrid, level){
     curOrientation = 0;

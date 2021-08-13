@@ -1,7 +1,11 @@
 #include "block.h"
+#include "grid.h"
+#include "cell.h"
 
 Block::Block(std::vector<Cell *> positions, Grid * theGrid, int level, bool heavy, bool extraHeavy)
 : position{positions}, theGrid{theGrid}, level{level}, heavy{heavy}, extraHeavy{extraHeavy} {}
+
+Block::~Block(){}
 
 std::vector<Cell *> Block::getCells(){
     return position;

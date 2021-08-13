@@ -4,7 +4,8 @@
 #include "subject.h"
 #include "observer.h"
 #include "cell.h"
-
+#include "grid.h"
+#include "block.h"
 using namespace std;
 
 TextDisplay::TextDisplay(int rows, int columns) : rows{rows},  cols{columns}{
@@ -18,6 +19,8 @@ TextDisplay::TextDisplay(int rows, int columns) : rows{rows},  cols{columns}{
     }
   }
 }
+
+TextDisplay::~TextDisplay(){}
 
 void TextDisplay::showText(Grid * g1, Grid * g2){
   cout << "Level:" << setfill(' ') << setw(5) << g1->getLevel();

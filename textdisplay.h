@@ -4,8 +4,8 @@
 #include <vector>
 #include "observer.h"
 #include "subject.h"
-#include "grid.h"
 
+class Grid;
 class Cell;
 
 class TextDisplay: public Observer {
@@ -17,12 +17,12 @@ class TextDisplay: public Observer {
   TextDisplay(int rows, int columns);
   void showText(Grid * g1, Grid * g2);
 
-  void notify(Cell &whoNotified) override;
-  virtual std::string getName() const override;
+  //void notify(Cell &whoNotified) override;
+  //virtual std::string getName() const override;
 
   ~TextDisplay();
 
-  friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);
+  //friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);
 };
 
 #endif

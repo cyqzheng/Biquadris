@@ -1,4 +1,5 @@
 #include "cell.h"
+#include "block.h"
 #include <algorithm>
 
 Cell::Cell(int r, int c) : type{'e'}, r{r}, c{c} {}

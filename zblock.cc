@@ -1,4 +1,6 @@
 #include "zblock.h"
+#include "grid.h"
+#include "cell.h"
 
 ZBlock::ZBlock(std::vector<Cell *> positions, Grid * theGrid, int level): Block(positions, theGrid, level){
     curOrientation = 0;

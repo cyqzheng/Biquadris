@@ -1,4 +1,6 @@
 #include "lblock.h"
+#include "grid.h"
+#include "cell.h"
 
 LBlock::LBlock(std::vector<Cell *> positions, Grid * theGrid, int level): Block(positions, theGrid, level){
     curOrientation = 0;

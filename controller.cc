@@ -6,7 +6,10 @@ using std::cin;
 using std::getline;
 
 //Biquadris::Biquadris(){}
-Biquadris::Biquadris(int width, int height) : width{width}, height{height} {}
+Biquadris::Biquadris(int width, int height) : width{width}, height{height} {
+    g1.player = 1;
+    g2.player = 2;
+}
 
 void Biquadris::run() {
     std::string cmd;

@@ -1,6 +1,6 @@
 #include <iostream>
 #include "grid.h"
-#include "starblock.h" 
+#include "block.h"
 
 using namespace std;
 
@@ -38,13 +38,13 @@ int Grid::remFullRows(){
   int num=0;
   for (int i=0; i<gridRows; ++i){
     if(isRowFull(i)){
-      while(isRowFull){
+      while(isRowFull(i)){
         clearRow(i);
         ++num;
       }
     }
   }
-  score += (level + num)*(level+num);
+  if (num!=0) score += (level + num)*(level+num);
   if (score > highscore) highscore = score;
   return num;
 }
@@ -113,8 +113,6 @@ bool Grid::isValidRotate(std::vector<Cell *> newpos){
 }
 
   
-  int Grid::getLevel() { return level; }
-
   Cell * Grid::getCell(int r, int c) { return &theGrid[r][c]; }
 
   int Grid::getLevel() { return level; }

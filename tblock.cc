@@ -1,4 +1,6 @@
 #include "tblock.h"
+#include "grid.h"
+#include "cell.h"
 
 TBlock::TBlock(std::vector<Cell *> positions, Grid * theGrid, int level): Block(positions, theGrid, level){
     curOrientation = 0;

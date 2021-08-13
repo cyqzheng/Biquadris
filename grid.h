@@ -4,8 +4,8 @@
 #include <vector>
 #include <memory>
 #include "cell.h"
-#include "block.h"
-#include "level.h"
+
+class Block;
 
 class Grid {
   
@@ -21,6 +21,7 @@ class Grid {
   int level = 0;
   int score = 0;
   int highscore = 0;
+  int player = 0;
   bool noGraphics = true;
   std::vector<std::vector<Cell>> theGrid;  // The actual grid.
   std::shared_ptr<Block> b;

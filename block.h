@@ -2,9 +2,9 @@
 #define _BLOCK_H
 
 #include <vector>
-#include "cell.h" 
-#include "grid.h"
 
+class Grid;
+class Cell;
 
 // virtual block class
 class Block{
@@ -16,15 +16,16 @@ class Block{
     bool extraHeavy;
 
     public:
-    int r, c, level;
+
+    int level;
     std::vector<Cell *> position; 
     char getType();
-    virtual void rotateCw();
-    virtual void rotateCcw();
+    virtual void rotateCw() = 0;
+    virtual void rotateCcw() = 0;
     // initial vector of cells must be in top to bottom, left to right order
     // I can create a method to ensure this?
     Block(std::vector<Cell *> positions, Grid * theGrid, int level, bool heavy = false, bool extraHeavy = false);
-    virtual ~Block();
+    ~Block();
 
     std::vector<Cell *> getCells();
     void setCells(std::vector<Cell *> newcells);

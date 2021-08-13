@@ -5,8 +5,9 @@
 #include <memory>
 #include "subject.h"
 #include "observer.h"
-#include "block.h"
 //#include "window.h"
+
+class Block;
 
 class Cell : public Observer, public Subject {
     int r, c;

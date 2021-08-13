@@ -1,4 +1,6 @@
 #include "iblock.h"
+#include "grid.h"
+#include "cell.h"
 
 IBlock::IBlock(std::vector<Cell *> positions, Grid * theGrid, int level): Block(positions, theGrid, level){
     curOrientation = 0;
