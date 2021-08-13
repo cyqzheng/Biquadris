@@ -18,7 +18,7 @@ class Grid {
   void clearGrid();   // Frees the grid.
 
  public:
- int level = 0;
+  int level = 0;
   int score = 0;
   int highscore = 0;
   bool noGraphics = true;
