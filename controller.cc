@@ -21,6 +21,7 @@ void Biquadris::run() {
     int count2 = 0;
     bool extrah1 = false;
     bool extrah2 = false;
+    int multiplier;
 
     
     player = 1;
@@ -38,6 +39,12 @@ void Biquadris::run() {
     if (graphics) window->showWindow(&g1, &g2);
 
     while (getline(cin,cmd)) {
+        int i = 0;
+        while(cmd[i] >= 0 && cmd[i] <= 9) {
+            multiplier = multiplier * 10 + (cmd[i] - '0');
+            ++i;
+        }
+        cmd = cmd.substr(i, std::string::npos);
         if(!cmd.compare("left")) {
             // get block in the grid and manipulate it
             if(player==1){
@@ -242,9 +249,15 @@ void Biquadris::run() {
             }
             updateLevel();
         }
-        else if(!cmd.compare("norandom file")) {}
-        else if(!cmd.compare("random")) {}
-        else if(!cmd.compare("sequence file")) {}
+        else if(!cmd.compare("norandom file")) {
+            //std::string s1 = std::ifstream{file};
+        }
+        else if(!cmd.compare("random")) {
+            // set random bool variable to turn randomness on and off
+        }
+        else if(!cmd.compare("sequence file")) {
+            // get file name and then set the new file sequence in Level
+        }
         else if(!cmd.compare("I")) {
             if (player == 1){
                 g1.b = genNext('I');
