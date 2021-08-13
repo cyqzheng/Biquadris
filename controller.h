@@ -22,7 +22,7 @@
 #include "block.h"
 #include "starblock.h"
 #include "textdisplay.h"
-#include "graphics.h";
+#include "graphics.h"
 
 
 class Biquadris {
