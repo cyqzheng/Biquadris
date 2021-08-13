@@ -7,8 +7,16 @@
 
 LevelZero::LevelZero(std::string s1, std::string s2){
 	if (s1 != "") seq1 = std::make_shared<std::ifstream>(s1);
+	else{
+		seq1 = std::make_shared<std::ifstream>("sequence1.txt");
+	}
 	if (!*seq1) std::cerr<<"Failed sequence1 txt to ifstream"<<std::endl;
+
 	if (s2 != "") seq2 = std::make_shared<std::ifstream>(s2);
+	else
+	{
+		seq2 = std::make_shared<std::ifstream>("sequence2.txt");
+	}
 	if (!*seq2) std::cerr<<"Failed sequence2 txt to ifstream"<<std::endl;
 }
 

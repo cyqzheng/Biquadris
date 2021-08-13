@@ -8,7 +8,9 @@ using std::getline;
 //Biquadris::Biquadris(){}
 Biquadris::Biquadris(int width, int height) : width{width}, height{height} {
     td = std::make_shared<TextDisplay>(width, height);
-    window = std::make_shared<Graphics>(width, height);
+    window = std::make_shared<Graphics>(width, height, &g1, &g2);
+    g1.window = window;
+    g2.window = window;
     g1.player = 1;
     g2.player = 2;
     lev1 = std::make_shared<LevelZero>();
@@ -23,6 +25,7 @@ void Biquadris::run() {
     bool extrah2 = false;
     int multiplier=0;
     std::shared_ptr<std::ifstream>seq;
+    std::vector<Cell *> oldpositions;
 
     
     player = 1;
@@ -37,7 +40,7 @@ void Biquadris::run() {
 
     player = 1;
     td->showText(&g1, &g2);
-    if (graphics) window->showWindow(&g1, &g2);
+    if (graphics) window->showWindow();
 
     if (!seqfile) cin >> cmd;
     else{
@@ -78,6 +81,7 @@ void Biquadris::run() {
         if(!shortcmd3.compare("lef")) {
             // get block in the grid and manipulate it
             if(player==1){
+                oldpositions = g1.b->position;
                 for (int k=0; k<multiplier; ++k){
                     g1.b->left();
                     if (g1.getLevel() >= 3) g1.b->downOne();               //new and improved (level 3 heavy)
@@ -88,6 +92,7 @@ void Biquadris::run() {
                 }
             }
             if(player==2){
+                oldpositions = g2.b->position;
                 for (int k=0; k<multiplier; ++k){
                     g2.b->left();
                     if (g2.getLevel() >= 3) g2.b->downOne();               //new and improved (level 3 heavy)
@@ -102,6 +107,7 @@ void Biquadris::run() {
         else if(!shortcmd2.compare("ri")) { 
             
             if(player==1){
+                oldpositions = g1.b->position;
                 for (int k=0; k<multiplier; ++k){
                     g1.b->right();
                     if (g1.getLevel() >= 3) g1.b->downOne();               //new and improved (level 3 heavy)
@@ -112,6 +118,7 @@ void Biquadris::run() {
                 }
             }
             if(player==2){
+                oldpositions = g2.b->position;
                 for (int k=0; k<multiplier; ++k){
                     g2.b->right();
                     if (g2.getLevel() >= 3) g2.b->downOne();               //new and improved (level 3 heavy)
@@ -124,6 +131,7 @@ void Biquadris::run() {
         }
         else if(!shortcmd2.compare("do")) { 
             if(player==1){
+                oldpositions = g1.b->position;
                 for (int k=0; k<multiplier; ++k){
                     g1.b->downOne();
                     if (g1.getLevel() >= 3) g1.b->downOne();               //new and improved (level 3 heavy)
@@ -134,6 +142,7 @@ void Biquadris::run() {
                 }
             }
             if(player==2){
+                oldpositions = g2.b->position;
                 for (int k=0; k<multiplier; ++k){
                     g2.b->downOne();
                     if (g2.getLevel() >= 3) g2.b->downOne();               //new and improved (level 3 heavy)
@@ -147,6 +156,7 @@ void Biquadris::run() {
         else if(!shortcmd2.compare("cl")) { 
             
             if(player==1){
+                oldpositions = g1.b->position;
                 for (int k=0; k<multiplier; ++k){
                     g1.b->rotateCw();
                     if (g1.getLevel() >= 3) g1.b->downOne();               //new and improved (level 3 heavy)
@@ -157,6 +167,7 @@ void Biquadris::run() {
                 }
             }
             if(player==2){
+                oldpositions = g2.b->position;
                 for (int k=0; k<multiplier; ++k){
                     g2.b->rotateCw();
                     if (g2.getLevel() >= 3) g2.b->downOne();               //new and improved (level 3 heavy)
@@ -170,6 +181,7 @@ void Biquadris::run() {
         else if(!shortcmd2.compare("co")) { 
             for (int k=0; k<multiplier; ++k){
                 if(player==1){
+                    oldpositions = g1.b->position;
                     g1.b->rotateCcw();
                     if (g1.getLevel() >= 3) g1.b->downOne();               //new and improved (level 3 heavy)
                     if (extrah1){
@@ -178,6 +190,7 @@ void Biquadris::run() {
                     }
                 }
                 if(player==2){
+                    oldpositions = g2.b->position;
                     g2.b->rotateCcw();
                     if (g2.getLevel() >= 3) g2.b->downOne();               //new and improved (level 3 heavy)
                     if (extrah2){
@@ -190,12 +203,14 @@ void Biquadris::run() {
         else if(!shortcmd2.compare("dr")) {
             for (int k=0; k<multiplier; ++k){ 
                 if(player==1){
+                    oldpositions = g1.b->position;
                     g1.b->drop();
                     if(g1.getLevel()>=4) count1++;
                     if (extrah1) extrah1 = false;
                     if (g1.blind) g1.blind = false;
                 }
                 if(player==2){
+                    oldpositions = g2.b->position;
                     g2.b->drop();
                     if(g2.getLevel()>=4) count2++;
                     if (extrah2) extrah2 = false;
@@ -236,6 +251,7 @@ void Biquadris::run() {
                         g1.b->drop();
                         g1.placeBlock();
                     }
+                    window->updateBlock(player, oldpositions);
                     g1.b = g1.nextb;
                     g1.nextb = genNext(nextBlock);
                     lose1 = g1.isGameOver();
@@ -274,10 +290,13 @@ void Biquadris::run() {
                         g2.b->drop();
                         g2.placeBlock();
                     }
+                    window->updateBlock(player, oldpositions);
                     g2.b = g2.nextb;
                     g2.nextb = genNext(nextBlock);
                     lose2 = g2.isGameOver();
                 }
+                window->updateBlock(player, oldpositions);
+                window->updateNextBlock(player);
                 this->switchPlayer();
             }
         }
@@ -291,6 +310,7 @@ void Biquadris::run() {
                 }
                 updateLevel();
             }
+            window->levelupdate();
         }
         else if(!shortcmd6.compare("leveld")) { 
             for (int k=0; k<multiplier; ++k){
@@ -302,6 +322,7 @@ void Biquadris::run() {
                 }
                 updateLevel();
             }
+            window->levelupdate();
         }
         else if(!shortcmd2.compare("no")) {
             std::string nextword;
@@ -428,7 +449,9 @@ void Biquadris::run() {
         }
         
         td->showText(&g1, &g2);
-        if (graphics) window->showWindow(&g1, &g2);
+        window->updateBlock(player, oldpositions);
+        window->updateNextBlock(player);
+        //if (graphics) window->showWindow();
 
         // get next command
         if (!seqfile) cin >> cmd;

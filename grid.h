@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 #include "cell.h"
+#include "graphics.h"
 
 class Block;
 
@@ -24,6 +25,7 @@ class Grid {
   int player = 0;
   bool noGraphics = true;
   bool blind = false;
+  std::shared_ptr<Graphics> window;
   std::vector<std::vector<Cell>> theGrid;  // The actual grid.
   std::shared_ptr<Block> b;
   std::shared_ptr<Block> nextb;

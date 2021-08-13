@@ -32,6 +32,7 @@ Grid::~Grid() {
 void Grid::placeBlock(){
   for (auto c : b->position){
     c->setBlock(b);
+    window->notify(this, c->getRow(), c->getCol());
   }
 }
 
@@ -55,6 +56,7 @@ int Grid::remFullRows(){
   }
   if (num!=0) score += (level + num)*(level+num);
   if (score > highscore) highscore = score;
+  window->scoreupdate();
   return num;
 }
 
@@ -86,14 +88,16 @@ void Grid::clearRow(int row) {
          theGrid[i][j].setBlock(theGrid[i-1][j].thisblock); // replace it
        }
        else{
-         theGrid[i][j].remBlock();
+         theGrid[i][j].remBlock();  
        }
+       window->notify(this, i, j);
      }
    }
    //reset top row
    for (int j=0; j < gridCols; ++j){
      theGrid[0][j].remBlock();
      theGrid[0][j].setType('e');
+     window->notify(this, 0, j);
   }
 }
 
@@ -115,6 +119,7 @@ void Grid::clearRow(int row) {
    }
    level = 0;
    score = 0;
+   window->showWindow();
   }
 
 bool Grid::isValidRotate(std::vector<Cell *> newpos){
