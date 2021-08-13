@@ -21,7 +21,7 @@ void Biquadris::run() {
     int count2 = 0;
     bool extrah1 = false;
     bool extrah2 = false;
-    int multiplier;
+    int multiplier=0;
     std::shared_ptr<std::ifstream>seq;
 
     
@@ -57,217 +57,253 @@ void Biquadris::run() {
     }
 
     while (cin) {
-        int i = 0;
-        while(cmd[i] >= 0 && cmd[i] <= 9) {
+        int i=0;
+
+        multiplier = 0;
+        while(cmd[i] >= '0' && cmd[i] <= '9') {
             multiplier = multiplier * 10 + (cmd[i] - '0');
             ++i;
         }
+        if (multiplier==0){
+            multiplier = 1;
+        }
+        
         cmd = cmd.substr(i, std::string::npos);
-        if(!cmd.compare("left")) {
+        std::string shortcmd3 = cmd, shortcmd2 = cmd, shortcmd6 = cmd;
+
+        if(cmd.length()>3) shortcmd3 = cmd.substr(0,3);
+        if(cmd.length()>2) shortcmd2 = cmd.substr(0,2);
+        if(cmd.length()>6) shortcmd6 = cmd.substr(0,6);
+
+        if(!shortcmd3.compare("lef")) {
             // get block in the grid and manipulate it
             if(player==1){
-                g1.b->left();
-                if (g1.getLevel() >= 3) g1.b->downOne();               //new and improved (level 3 heavy)
-                if (extrah1){
-                    g1.b->downOne();
-                    g1.b->downOne();
+                for (int k=0; k<multiplier; ++k){
+                    g1.b->left();
+                    if (g1.getLevel() >= 3) g1.b->downOne();               //new and improved (level 3 heavy)
+                    if (extrah1){
+                        g1.b->downOne();
+                        g1.b->downOne();
+                    }
                 }
             }
             if(player==2){
-                g2.b->left();
-                if (g2.getLevel() >= 3) g2.b->downOne();               //new and improved (level 3 heavy)
-                if (extrah2){
-                    g2.b->downOne();
-                    g2.b->downOne();
+                for (int k=0; k<multiplier; ++k){
+                    g2.b->left();
+                    if (g2.getLevel() >= 3) g2.b->downOne();               //new and improved (level 3 heavy)
+                    if (extrah2){
+                        g2.b->downOne();
+                        g2.b->downOne();
+                    }
                 }
             }
             
         }
-        else if(!cmd.compare("right")) { 
+        else if(!shortcmd2.compare("ri")) { 
             
             if(player==1){
-                g1.b->right();
-                if (g1.getLevel() >= 3) g1.b->downOne();               //new and improved (level 3 heavy)
-                if (extrah1){
-                    g1.b->downOne();
-                    g1.b->downOne();
+                for (int k=0; k<multiplier; ++k){
+                    g1.b->right();
+                    if (g1.getLevel() >= 3) g1.b->downOne();               //new and improved (level 3 heavy)
+                    if (extrah1){
+                        g1.b->downOne();
+                        g1.b->downOne();
+                    }
                 }
             }
             if(player==2){
-                g2.b->right();
-                if (g2.getLevel() >= 3) g2.b->downOne();               //new and improved (level 3 heavy)
-                if (extrah2){
-                    g2.b->downOne();
-                    g2.b->downOne();
+                for (int k=0; k<multiplier; ++k){
+                    g2.b->right();
+                    if (g2.getLevel() >= 3) g2.b->downOne();               //new and improved (level 3 heavy)
+                    if (extrah2){
+                        g2.b->downOne();
+                        g2.b->downOne();
+                    }
                 }
             }
         }
-        else if(!cmd.compare("down")) { 
+        else if(!shortcmd2.compare("do")) { 
             if(player==1){
-                g1.b->downOne();
-                if (g1.getLevel() >= 3) g1.b->downOne();               //new and improved (level 3 heavy)
-                if (extrah1){
+                for (int k=0; k<multiplier; ++k){
                     g1.b->downOne();
-                    g1.b->downOne();
+                    if (g1.getLevel() >= 3) g1.b->downOne();               //new and improved (level 3 heavy)
+                    if (extrah1){
+                        g1.b->downOne();
+                        g1.b->downOne();
+                    }
                 }
             }
             if(player==2){
-                g2.b->downOne();
-                if (g2.getLevel() >= 3) g2.b->downOne();               //new and improved (level 3 heavy)
-                if (extrah2){
+                for (int k=0; k<multiplier; ++k){
                     g2.b->downOne();
-                    g2.b->downOne();
+                    if (g2.getLevel() >= 3) g2.b->downOne();               //new and improved (level 3 heavy)
+                    if (extrah2){
+                        g2.b->downOne();
+                        g2.b->downOne();
+                    }
                 }
             }
         }
-        else if(!cmd.compare("clockwise")) { 
-
-            if(player==1){
-                g1.b->rotateCw();
-                if (g1.getLevel() >= 3) g1.b->downOne();               //new and improved (level 3 heavy)
-                if (extrah1){
-                    g1.b->downOne();
-                    g1.b->downOne();
-                }
-            }
-            if(player==2){
-                g2.b->rotateCw();
-                if (g2.getLevel() >= 3) g2.b->downOne();               //new and improved (level 3 heavy)
-                if (extrah2){
-                    g2.b->downOne();
-                    g2.b->downOne();
-                }
-            }
-        }
-        else if(!cmd.compare("counterclockwise")) { 
-            if(player==1){
-                g1.b->rotateCcw();
-                if (g1.getLevel() >= 3) g1.b->downOne();               //new and improved (level 3 heavy)
-                if (extrah1){
-                    g1.b->downOne();
-                    g1.b->downOne();
-                }
-            }
-            if(player==2){
-                g2.b->rotateCcw();
-                if (g2.getLevel() >= 3) g2.b->downOne();               //new and improved (level 3 heavy)
-                if (extrah2){
-                    g2.b->downOne();
-                    g2.b->downOne();
-                }
-            }
-        }
-        else if(!cmd.compare("drop")) { 
-            if(player==1){
-                g1.b->drop();
-                if(g1.getLevel()>=4) count1++;
-                if (extrah1) extrah1 = false;
-                if (g1.blind) g1.blind = false;
-            }
-            if(player==2){
-                g2.b->drop();
-                if(g2.getLevel()>=4) count2++;
-                if (extrah2) extrah2 = false;
-                if (g2.blind) g2.blind = false;
-            }
-            //count goes up per dropped block when level is 4 or more
+        else if(!shortcmd2.compare("cl")) { 
             
-            if (player==1){
-                char nextBlock = lev1->genNext(player);
-                g1.placeBlock(); // places b down
-
-                int num = g1.remFullRows();
-                if (num>0){
-                    count1 = 0;
-                }
-                if (num >=2){
-                    std::string spec;
-                    std::cout << "Input a special action to inflict on the other player (blind, heavy, force)" << std::endl;
-                    cin >> spec;
-                    if (!spec.compare("blind")){
-                        g2.blind = true;
-                    }
-                    else if (!spec.compare("heavy")){
-                        extrah2 = true;
-                    }
-                    else if (!spec.compare("force")){
-                        char btype;
-                        cin >> btype;
-                        player = 2;
-                        g2.b = genNext(btype);
-                        player = 1;
+            if(player==1){
+                for (int k=0; k<multiplier; ++k){
+                    g1.b->rotateCw();
+                    if (g1.getLevel() >= 3) g1.b->downOne();               //new and improved (level 3 heavy)
+                    if (extrah1){
+                        g1.b->downOne();
+                        g1.b->downOne();
                     }
                 }
-                else if (count1 % 5 == 0 && count1 > 0) {
-                    std::vector<Cell *> positions;
-                    positions.push_back(g1.getCell(3, 5));
-                    g1.b = std::make_shared<StarBlock>(positions, &g1, g1.getLevel());
+            }
+            if(player==2){
+                for (int k=0; k<multiplier; ++k){
+                    g2.b->rotateCw();
+                    if (g2.getLevel() >= 3) g2.b->downOne();               //new and improved (level 3 heavy)
+                    if (extrah2){
+                        g2.b->downOne();
+                        g2.b->downOne();
+                    }
+                }
+            }
+        }
+        else if(!shortcmd2.compare("co")) { 
+            for (int k=0; k<multiplier; ++k){
+                if(player==1){
+                    g1.b->rotateCcw();
+                    if (g1.getLevel() >= 3) g1.b->downOne();               //new and improved (level 3 heavy)
+                    if (extrah1){
+                        g1.b->downOne();
+                        g1.b->downOne();
+                    }
+                }
+                if(player==2){
+                    g2.b->rotateCcw();
+                    if (g2.getLevel() >= 3) g2.b->downOne();               //new and improved (level 3 heavy)
+                    if (extrah2){
+                        g2.b->downOne();
+                        g2.b->downOne();
+                    }
+                }
+            }
+        }
+        else if(!shortcmd2.compare("dr")) {
+            for (int k=0; k<multiplier; ++k){ 
+                if(player==1){
                     g1.b->drop();
-                    g1.placeBlock();
+                    if(g1.getLevel()>=4) count1++;
+                    if (extrah1) extrah1 = false;
+                    if (g1.blind) g1.blind = false;
                 }
-                g1.b = g1.nextb;
-                g1.nextb = genNext(nextBlock);
-                lose1 = g1.isGameOver();
-            }
-            else if (player==2){
-                char nextBlock = lev2->genNext(player);
-                g2.placeBlock(); // places b down
-
-                int num = g2.remFullRows();
-                if (num!=0){
-                    count1 = 0;
-                }
-                if (num >=2){
-                    std::string spec;
-                    std::cout << "Input a special action to inflict on the other player (blind, heavy, force)" << std::endl;
-                    cin >> spec;
-                    if (!spec.compare("blind")){
-                        g2.blind = true;
-                    }
-                    else if (!spec.compare("heavy")){
-                        extrah2 = true;
-                    }
-                    else if (!spec.compare("force")){
-                        char btype;
-                        cin >> btype;
-                        player = 1;
-                        g1.b = genNext(btype);
-                        player = 2;
-                    }
-                }
-
-                else if (count2 % 5 == 0 && count2 > 0) {
-                    std::vector<Cell *> positions;
-                    positions.push_back(g2.getCell(3, 5));
-                    g2.b = std::make_shared<StarBlock>(positions, &g2, g2.getLevel());
+                if(player==2){
                     g2.b->drop();
-                    g2.placeBlock();
+                    if(g2.getLevel()>=4) count2++;
+                    if (extrah2) extrah2 = false;
+                    if (g2.blind) g2.blind = false;
                 }
-                g2.b = g2.nextb;
-                g2.nextb = genNext(nextBlock);
-                lose2 = g2.isGameOver();
+                //count goes up per dropped block when level is 4 or more
+                
+                if (player==1){
+                    char nextBlock = lev1->genNext(player);
+                    g1.placeBlock(); // places b down
+
+                    int num = g1.remFullRows();
+                    if (num>0){
+                        count1 = 0;
+                    }
+                    if (num >=2){
+                        std::string spec;
+                        std::cout << "Input a special action to inflict on the other player (blind, heavy, force)" << std::endl;
+                        cin >> spec;
+                        if (!spec.compare("blind")){
+                            g2.blind = true;
+                        }
+                        else if (!spec.compare("heavy")){
+                            extrah2 = true;
+                        }
+                        else if (!spec.compare("force")){
+                            char btype;
+                            cin >> btype;
+                            player = 2;
+                            g2.b = genNext(btype);
+                            player = 1;
+                        }
+                    }
+                    else if (count1 % 5 == 0 && count1 > 0) {
+                        std::vector<Cell *> positions;
+                        positions.push_back(g1.getCell(3, 5));
+                        g1.b = std::make_shared<StarBlock>(positions, &g1, g1.getLevel());
+                        g1.b->drop();
+                        g1.placeBlock();
+                    }
+                    g1.b = g1.nextb;
+                    g1.nextb = genNext(nextBlock);
+                    lose1 = g1.isGameOver();
+                }
+                else if (player==2){
+                    char nextBlock = lev2->genNext(player);
+                    g2.placeBlock(); // places b down
+
+                    int num = g2.remFullRows();
+                    if (num!=0){
+                        count1 = 0;
+                    }
+                    if (num >=2){
+                        std::string spec;
+                        std::cout << "Input a special action to inflict on the other player (blind, heavy, force)" << std::endl;
+                        cin >> spec;
+                        if (!spec.compare("blind")){
+                            g2.blind = true;
+                        }
+                        else if (!spec.compare("heavy")){
+                            extrah2 = true;
+                        }
+                        else if (!spec.compare("force")){
+                            char btype;
+                            cin >> btype;
+                            player = 1;
+                            g1.b = genNext(btype);
+                            player = 2;
+                        }
+                    }
+
+                    else if (count2 % 5 == 0 && count2 > 0) {
+                        std::vector<Cell *> positions;
+                        positions.push_back(g2.getCell(3, 5));
+                        g2.b = std::make_shared<StarBlock>(positions, &g2, g2.getLevel());
+                        g2.b->drop();
+                        g2.placeBlock();
+                    }
+                    g2.b = g2.nextb;
+                    g2.nextb = genNext(nextBlock);
+                    lose2 = g2.isGameOver();
+                }
+                this->switchPlayer();
             }
-            this->switchPlayer();
         }
-        else if(!cmd.compare("levelup")) { 
-            if (player==1){
-                g1.levelUp();
+        else if(!shortcmd6.compare("levelu")) { 
+            for (int k=0; k<multiplier; ++k){
+                if (player==1){
+                    g1.levelUp();
+                }
+                if (player==2){
+                    g2.levelUp();
+                }
+                updateLevel();
             }
-            if (player==2){
-                g2.levelUp();
-            }
-            updateLevel();
         }
-        else if(!cmd.compare("leveldown")) { 
-            if (player==1){
-                g1.levelDown();
+        else if(!shortcmd6.compare("leveld")) { 
+            for (int k=0; k<multiplier; ++k){
+                if (player==1){
+                    g1.levelDown();
+                }
+                if (player==2){
+                    g2.levelDown();
+                }
+                updateLevel();
             }
-            if (player==2){
-                g2.levelDown();
-            }
-            updateLevel();
         }
-        else if(!cmd.compare("norandom")) {
+        else if(!shortcmd2.compare("no")) {
             std::string nextword;
             cin >> nextword;
             std::string s;
@@ -288,7 +324,7 @@ void Biquadris::run() {
             }
             //std::string s1 = std::ifstream{file};
         }
-        else if(!cmd.compare("random")) {
+        else if(!shortcmd2.compare("ra")) {
             // set random bool variable to turn randomness on and off
             if (player == 1){
                 lev1->random = true;
@@ -297,7 +333,7 @@ void Biquadris::run() {
                 lev2->random = true;
             }
         }
-        else if(!cmd.compare("sequence")) {
+        else if(!shortcmd2.compare("se")) {
             std::string nextword;
             cin >> nextword; // should be "file"
             // get file name and then set the new file sequence in Level
@@ -376,40 +412,7 @@ void Biquadris::run() {
                 g2.placeBlock();
             }
         }
-        else if (!cmd.compare("blind")){
-            // for testing
-            if (player == 1){
-                g2.blind = true;
-            }
-            else{
-                g1.blind = true;
-            }
-        }
-        else if (!cmd.compare("extrah")){
-            // for testing
-            if (player == 1){
-                extrah2 = true;
-            }
-            else{
-                extrah1 = true;
-            }
-        }
-        else if (!cmd.compare("force")){
-            // for testing
-            char btype;
-            cin >> btype;
-            if (player == 1){
-                player = 2;
-                g2.b = genNext(btype);
-                player = 1;
-            }
-            else{
-                player = 1;
-                g1.b = genNext(btype);
-                player = 2;
-            }
-        }
-        else if(!cmd.compare("restart")) { 
+        else if(!shortcmd2.compare("re")) { 
             if (player==1){
                 g1.reset();
                 lev1 = std::make_shared<LevelZero>();
