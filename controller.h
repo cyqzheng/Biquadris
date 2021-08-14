@@ -45,11 +45,11 @@ class Biquadris {
   public:
   int seed;
   std::string f1, f2;
-  bool graphics = true;
+  bool graphics;
   Grid g1{}; // for player 1
   Grid g2{}; // for player 2
   //Biquadris();
-  Biquadris(int width=11, int height=18);
+  Biquadris(int width, int height, bool graphics);
   void run();
   int getCurScore();
   int getHighScore();

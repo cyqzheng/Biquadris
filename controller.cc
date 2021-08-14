@@ -6,13 +6,15 @@ using std::cin;
 using std::getline;
 
 //Biquadris::Biquadris(){}
-Biquadris::Biquadris(int width, int height) : width{width}, height{height} {
+Biquadris::Biquadris(int width, int height, bool graphics) : width{width}, height{height} {
     td = std::make_shared<TextDisplay>(width, height);
-    window = std::make_shared<Graphics>(width, height, &g1, &g2);
-    g1.window = window;
-    g2.window = window;
+    if (graphics) window = std::make_shared<Graphics>(width, height, &g1, &g2);
+    if (graphics) g1.window = window;
+    if (graphics) g2.window = window;
     g1.player = 1;
     g2.player = 2;
+    g1.graphics = graphics;
+    g2.graphics = graphics;
     lev1 = std::make_shared<LevelZero>();
     lev2 = std::make_shared<LevelZero>();
 }
@@ -207,14 +209,20 @@ void Biquadris::run() {
                     g1.b->drop();
                     if(g1.getLevel()>=4) count1++;
                     if (extrah1) extrah1 = false;
-                    if (g1.blind) g1.blind = false;
+                    if (g1.blind){
+                        g1.blind = false;
+                        if (graphics) window->showWindow();
+                    }
                 }
                 if(player==2){
                     oldpositions = g2.b->position;
                     g2.b->drop();
                     if(g2.getLevel()>=4) count2++;
                     if (extrah2) extrah2 = false;
-                    if (g2.blind) g2.blind = false;
+                    if (g2.blind){
+                        g2.blind = false;
+                        if (graphics) window->showWindow();
+                    }
                 }
                 //count goes up per dropped block when level is 4 or more
                 
@@ -232,6 +240,7 @@ void Biquadris::run() {
                         cin >> spec;
                         if (!spec.compare("blind")){
                             g2.blind = true;
+                            if (graphics) window->showWindow();
                         }
                         else if (!spec.compare("heavy")){
                             extrah2 = true;
@@ -251,7 +260,7 @@ void Biquadris::run() {
                         g1.b->drop();
                         g1.placeBlock();
                     }
-                    window->updateBlock(player, oldpositions);
+                    if (graphics) window->updateBlock(player, oldpositions);
                     g1.b = g1.nextb;
                     g1.nextb = genNext(nextBlock);
                     lose1 = g1.isGameOver();
@@ -270,6 +279,7 @@ void Biquadris::run() {
                         cin >> spec;
                         if (!spec.compare("blind")){
                             g2.blind = true;
+                            if (graphics) window->showWindow();
                         }
                         else if (!spec.compare("heavy")){
                             extrah2 = true;
@@ -290,13 +300,13 @@ void Biquadris::run() {
                         g2.b->drop();
                         g2.placeBlock();
                     }
-                    window->updateBlock(player, oldpositions);
+                    if (graphics) window->updateBlock(player, oldpositions);
                     g2.b = g2.nextb;
                     g2.nextb = genNext(nextBlock);
                     lose2 = g2.isGameOver();
                 }
-                window->updateBlock(player, oldpositions);
-                window->updateNextBlock(player);
+                if (graphics) window->updateBlock(player, oldpositions);
+                if (graphics) window->updateNextBlock(player);
                 
             }
             this->switchPlayer();
@@ -311,7 +321,7 @@ void Biquadris::run() {
                 }
                 updateLevel();
             }
-            window->levelupdate();
+            if (graphics) window->levelupdate();
         }
         else if(!shortcmd6.compare("leveld")) { 
             for (int k=0; k<multiplier; ++k){
@@ -323,7 +333,7 @@ void Biquadris::run() {
                 }
                 updateLevel();
             }
-            window->levelupdate();
+            if (graphics) window->levelupdate();
         }
         else if(!shortcmd2.compare("no")) {
             std::string nextword;
@@ -450,11 +460,10 @@ void Biquadris::run() {
         }
         
         td->showText(&g1, &g2);
-        window->updateBlock(player, oldpositions);
-        window->updateNextBlock(player);
-        window->levelupdate();
-        window->scoreupdate();
-        //if (graphics) window->showWindow();
+        if (graphics) window->updateBlock(player, oldpositions);
+        if (graphics) window->updateNextBlock(player);
+        if (graphics) window->levelupdate();
+        if (graphics) window->scoreupdate();
 
         // get next command
         if (!seqfile) cin >> cmd;

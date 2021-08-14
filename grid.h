@@ -23,7 +23,7 @@ class Grid {
   int score = 0;
   int highscore = 0;
   int player = 0;
-  bool noGraphics = true;
+  bool graphics = false;
   bool blind = false;
   std::shared_ptr<Graphics> window;
   std::vector<std::vector<Cell>> theGrid;  // The actual grid.
