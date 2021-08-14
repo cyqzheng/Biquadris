@@ -276,7 +276,7 @@ void Graphics::notify(Grid * mygrid, int r, int c){
 void Graphics::levelupdate(){
     std::string p1level = "Level: " + std::to_string(g1->getLevel());
     std::string p2level = "Level: " + std::to_string(g2->getLevel());
-    //window->fillRectangle(0, 0, w*rows*2+space, w, Xwindow::White);
+    window->fillRectangle(0, 0, w*rows*2+space, w, Xwindow::White);
     window->drawString(space+rows*w, w, p2level);
     window->drawString(0, w, p1level);
 }
