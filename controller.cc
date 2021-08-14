@@ -646,7 +646,7 @@ void Biquadris::updateLevel(){
             else if (f2!=""){
                 lev1 = std::make_shared<LevelZero>("sequence1.txt",f2);
             }
-            lev1 = std::make_shared<LevelZero>();
+            else lev1 = std::make_shared<LevelZero>();
         }
         else if (g1.getLevel()==1){
             lev1 = std::make_shared<LevelOne>();

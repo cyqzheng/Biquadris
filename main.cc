@@ -13,8 +13,6 @@ int main(int argc, char **argv) {
 	bool graphics = true;
 	std::string f1 = "", f2 = "";
 
-    
-    
 	// we loop through the arguments
 	int i = 1;
 	while(i<argc){
@@ -71,9 +69,16 @@ int main(int argc, char **argv) {
 		f1 = "sequence1.txt";
 		game.f1 = f1;
 	}
+	else{
+		game.f1 = f1;
+	}
 	if (f2 == ""){
 		f2 = "sequence2.txt";
 		game.f2 = f2;
 	}
+	else{
+		game.f2 = f2;
+	}
+
     game.run();
 }
