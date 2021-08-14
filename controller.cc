@@ -377,6 +377,7 @@ void Biquadris::run() {
             // get file name and then set the new file sequence in Level
             cin >> f;
             seqfile = true;
+            seq = std::make_shared<std::ifstream>(f);
         }
         else if(!cmd.compare("I")) {
             if (player == 1){
@@ -474,7 +475,6 @@ void Biquadris::run() {
         // get next command
         if (!seqfile) cin >> cmd;
         else{
-            seq = std::make_shared<std::ifstream>(f);
             char nextBlock = 'e';
             std::string newcmd;
             seq->exceptions(std::ios::eofbit|std::ios::failbit);
