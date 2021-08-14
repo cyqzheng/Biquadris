@@ -297,8 +297,9 @@ void Biquadris::run() {
                 }
                 window->updateBlock(player, oldpositions);
                 window->updateNextBlock(player);
-                this->switchPlayer();
+                
             }
+            this->switchPlayer();
         }
         else if(!shortcmd6.compare("levelu")) { 
             for (int k=0; k<multiplier; ++k){
@@ -451,6 +452,8 @@ void Biquadris::run() {
         td->showText(&g1, &g2);
         window->updateBlock(player, oldpositions);
         window->updateNextBlock(player);
+        window->levelupdate();
+        window->scoreupdate();
         //if (graphics) window->showWindow();
 
         // get next command

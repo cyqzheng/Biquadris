@@ -160,12 +160,14 @@ void Graphics::showWindow(){
 
 void Graphics::updateBlock(int player, std::vector<Cell *> oldpositions){
     if (player == 1){
-        for (auto o : oldpositions){
-            if (!g1->blind || o->getCol()<2 || o->getCol()>8 || o->getRow()<2 || o->getCol()>11){
-                window->fillRectangle(o->getCol()*w, o->getRow()*w+header, w, w, Xwindow::Black);
-            }
-            else{
-                window->fillRectangle(o->getCol()*w, o->getRow()*w+header, w, w, Xwindow::Grey);
+        if (oldpositions != g1->b->position){
+            for (auto o : oldpositions){
+                if (!g1->blind || o->getCol()<2 || o->getCol()>8 || o->getRow()<2 || o->getCol()>11){
+                    window->fillRectangle(o->getCol()*w, o->getRow()*w+header, w, w, Xwindow::Black);
+                }
+                else{
+                    window->fillRectangle(o->getCol()*w, o->getRow()*w+header, w, w, Xwindow::Grey);
+                }
             }
         }
         for (auto c : g1->b->position){
@@ -176,12 +178,14 @@ void Graphics::updateBlock(int player, std::vector<Cell *> oldpositions){
     }
 
     else{
-        for (auto o : oldpositions){
-            if (!g2->blind || o->getCol()<2 || o->getCol()>8 || o->getRow()<2 || o->getCol()>11){
-                window->fillRectangle(o->getCol()*w+space+rows*w, o->getRow()*w+header, w, w, Xwindow::Black);
-            }
-            else{
-                window->fillRectangle(o->getCol()*w+space+rows*w, o->getRow()*w+header, w, w, Xwindow::Grey);
+        if (oldpositions != g2->b->position){
+            for (auto o : oldpositions){
+                if (!g2->blind || o->getCol()<2 || o->getCol()>8 || o->getRow()<2 || o->getCol()>11){
+                    window->fillRectangle(o->getCol()*w+space+rows*w, o->getRow()*w+header, w, w, Xwindow::Black);
+                }
+                else{
+                    window->fillRectangle(o->getCol()*w+space+rows*w, o->getRow()*w+header, w, w, Xwindow::Grey);
+                }
             }
         }
         for (auto c : g2->b->position){
