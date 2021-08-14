@@ -8,9 +8,9 @@ using std::getline;
 //Biquadris::Biquadris(){}
 Biquadris::Biquadris(int width, int height, bool graphics) : width{width}, height{height} {
     td = std::make_shared<TextDisplay>(width, height);
-    if (graphics) window = std::make_shared<Graphics>(width, height, &g1, &g2);
-    if (graphics) g1.window = window;
-    if (graphics) g2.window = window;
+    window = std::make_shared<Graphics>(width, height, &g1, &g2);
+    g1.window = window;
+    g2.window = window;
     g1.player = 1;
     g2.player = 2;
     g1.graphics = graphics;
@@ -29,7 +29,11 @@ void Biquadris::run() {
     std::shared_ptr<std::ifstream>seq;
     std::vector<Cell *> oldpositions;
 
-    
+    g1.graphics = graphics;
+    g2.graphics = graphics;
+    if (graphics) g1.window = window;
+    if (graphics) g2.window = window;
+
     player = 1;
     updateLevel();
     g1.b = genNext(lev1->genNext(player));

@@ -10,8 +10,6 @@ using namespace std;
   gridCols = 11;
   level = 0;
   score = 0;
-  
-  
 
   // create the grid of cells
   for (int i=0; i<gridRows; ++i){
