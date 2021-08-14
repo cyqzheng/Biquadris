@@ -350,6 +350,7 @@ void Biquadris::run() {
                 if (g1.level>=3){
                     lev1->random = false;
                     lev1->f = s;
+                    lev1->setseq();
                 }
                 
             }
@@ -357,6 +358,7 @@ void Biquadris::run() {
                 if (g2.level>=3){
                     lev2->random = false;
                     lev2->f = s;
+                    lev2->setseq();
                 }
                 
             }

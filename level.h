@@ -20,6 +20,7 @@ class Level {
 	virtual bool getHeavy() = 0;
 	//virtual Block getNextBlock() = 0;
 	virtual char genNext(int s) = 0; //s is which player is playing (1 or 2)
+	virtual void setseq();
 
 	std::shared_ptr<Block> getCurBlock(int s);//s is which player is playing (1 or 2)
 	void setCurBlock(std::shared_ptr<Block> b, int s);

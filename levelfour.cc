@@ -38,7 +38,7 @@ char LevelFour::genNext(int s){
                      //should probs make exception to throw if we reach end without anything to return
      }
      else{
-        if (f != "") seq = std::make_shared<std::ifstream>(f);
+        
         char nextBlock = 'e';
         std::string newBlock;
 	seq->exceptions(std::ios::eofbit|std::ios::failbit);
@@ -80,4 +80,9 @@ char LevelFour::genNext(int s){
                 }
      }
      return 'I'; //should not get here
+}
+
+void LevelFour::setseq(){
+        if (f != "") seq = std::make_shared<std::ifstream>(f);
+        else seq = std::make_shared<std::ifstream>("sequence1.txt");
 }

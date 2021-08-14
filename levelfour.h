@@ -15,6 +15,7 @@ class LevelFour : public Level{
         bool getHeavy() override;
         //Block getNextBlock() override;
         char genNext(int s) override;
+        void setseq() override;
 
 };
 

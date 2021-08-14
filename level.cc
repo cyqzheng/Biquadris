@@ -14,3 +14,4 @@ void Level::setCurBlock(std::shared_ptr<Block> b, int s){
 }
 void Level::updateBlock(){};
 void Level::updateGrid(){};
+void Level::setseq(){};
