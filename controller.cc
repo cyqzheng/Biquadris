@@ -344,8 +344,6 @@ void Biquadris::run() {
             if (graphics) window->levelupdate();
         }
         else if(!shortcmd2.compare("no")) {
-            std::string nextword;
-            cin >> nextword;
             std::string s;
             cin >> s;
             if (player == 1){
@@ -374,8 +372,6 @@ void Biquadris::run() {
             }
         }
         else if(!shortcmd2.compare("se")) {
-            std::string nextword;
-            cin >> nextword; // should be "file"
             // get file name and then set the new file sequence in Level
             cin >> f;
             seqfile = true;
