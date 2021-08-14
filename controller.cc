@@ -6,7 +6,7 @@ using std::cin;
 using std::getline;
 
 //Biquadris::Biquadris(){}
-Biquadris::Biquadris(int width, int height, bool graphics) : width{width}, height{height} {
+Biquadris::Biquadris(int width, int height, bool graphics) : width{width}, height{height}, graphics{graphics} {
     td = std::make_shared<TextDisplay>(width, height);
     window = std::make_shared<Graphics>(width, height, &g1, &g2);
     g1.window = window;
@@ -33,6 +33,10 @@ void Biquadris::run() {
     g2.graphics = graphics;
     if (graphics) g1.window = window;
     if (graphics) g2.window = window;
+
+
+    if (graphics) std::cout << "Graphics are on" << std::endl;
+    else std::cout << "Graphics are off" << std::endl;
 
     player = 1;
     updateLevel();

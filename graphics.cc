@@ -75,7 +75,7 @@ void Graphics::showWindow(){
     for (int i  = 0; i < cols; i++){
         for(int j = 0; j < rows; j++){
             bool set = false;
-            if (g1->blind && i>=2 && i <=11 && j>=2 && j<=8 ){
+            if (g1->blind && i>=5 && i <=14 && j>=2 && j<=8 ){
                 set = true;
                 window->fillRectangle(j*w, i*w+header, w, w, Xwindow::Grey);
             }
@@ -94,7 +94,7 @@ void Graphics::showWindow(){
 
         for(int j = 0; j < rows; j++){
             bool set = false;
-            if (g2->blind && i>=2 && i <=11 && j>=2 && j<=8 ){
+            if (g2->blind && i>5 && i <=14 && j>=2 && j<=8 ){
                 set = true;
                 window->fillRectangle(j*w+space+rows*w, i*w+header, w, w, Xwindow::Grey);
             }
@@ -162,7 +162,7 @@ void Graphics::updateBlock(int player, std::vector<Cell *> oldpositions){
     if (player == 1){
         if (oldpositions != g1->b->position){
             for (auto o : oldpositions){
-                if (!g1->blind || o->getCol()<2 || o->getCol()>8 || o->getRow()<2 || o->getCol()>11){
+                if (!g1->blind || o->getCol()<2 || o->getCol()>8 || o->getRow()<5 || o->getCol()>14){
                     window->fillRectangle(o->getCol()*w, o->getRow()*w+header, w, w, Xwindow::Black);
                 }
                 else{
@@ -171,7 +171,7 @@ void Graphics::updateBlock(int player, std::vector<Cell *> oldpositions){
             }
         }
         for (auto c : g1->b->position){
-            if (!g1->blind || c->getCol()<2 || c->getCol()>8 || c->getRow()<2 || c->getCol()>11){
+            if (!g1->blind || c->getCol()<2 || c->getCol()>8 || c->getRow()<5 || c->getCol()>14){
                 window->fillRectangle(c->getCol()*w, c->getRow()*w+header, w, w, ctoi(g1->b->getType()));
             }
         }
@@ -180,7 +180,7 @@ void Graphics::updateBlock(int player, std::vector<Cell *> oldpositions){
     else{
         if (oldpositions != g2->b->position){
             for (auto o : oldpositions){
-                if (!g2->blind || o->getCol()<2 || o->getCol()>8 || o->getRow()<2 || o->getCol()>11){
+                if (!g2->blind || o->getCol()<2 || o->getCol()>8 || o->getRow()<5 || o->getCol()>14){
                     window->fillRectangle(o->getCol()*w+space+rows*w, o->getRow()*w+header, w, w, Xwindow::Black);
                 }
                 else{
@@ -189,7 +189,7 @@ void Graphics::updateBlock(int player, std::vector<Cell *> oldpositions){
             }
         }
         for (auto c : g2->b->position){
-            if (!g2->blind || c->getCol()<2 || c->getCol()>8 || c->getRow()<2 || c->getCol()>11){
+            if (!g2->blind || c->getCol()<2 || c->getCol()>8 || c->getRow()<5 || c->getCol()>14){
                 window->fillRectangle(c->getCol()*w+space+rows*w, c->getRow()*w+header, w, w, ctoi(g2->b->getType()));
             }
         }
@@ -246,7 +246,7 @@ void Graphics::updateNextBlock(int player){
 // when cells change
 void Graphics::notify(Grid * mygrid, int r, int c){
     if (mygrid->player==2){
-        if (!g2->blind || mygrid->theGrid[r][c].getCol()<2 || mygrid->theGrid[r][c].getCol()>8 || mygrid->theGrid[r][c].getRow()<2 || mygrid->theGrid[r][c].getCol()>11){
+        if (!g2->blind || mygrid->theGrid[r][c].getCol()<2 || mygrid->theGrid[r][c].getCol()>8 || mygrid->theGrid[r][c].getRow()<5 || mygrid->theGrid[r][c].getCol()>14){
             if (mygrid->theGrid[r][c].getState()){
                 window->fillRectangle(c*w+space+rows*w, r*w+header, w, w, ctoi(g2->theGrid[r][c].getType()));
             }
@@ -259,7 +259,7 @@ void Graphics::notify(Grid * mygrid, int r, int c){
         }
     }
     if (mygrid->player==1){
-        if (!g1->blind || mygrid->theGrid[r][c].getCol()<2 || mygrid->theGrid[r][c].getCol()>8 || mygrid->theGrid[r][c].getRow()<2 || mygrid->theGrid[r][c].getCol()>11){
+        if (!(g1->blind) || mygrid->theGrid[r][c].getCol()<2 || mygrid->theGrid[r][c].getCol()>8 || mygrid->theGrid[r][c].getRow()<5 || mygrid->theGrid[r][c].getCol()>14){
             if (mygrid->theGrid[r][c].getState()){
                 window->fillRectangle(c*w, r*w+header, w, w, ctoi(g2->theGrid[r][c].getType()));
             }
@@ -276,8 +276,9 @@ void Graphics::notify(Grid * mygrid, int r, int c){
 void Graphics::levelupdate(){
     std::string p1level = "Level: " + std::to_string(g1->getLevel());
     std::string p2level = "Level: " + std::to_string(g2->getLevel());
-    window->drawString(0, w, p1level);
+    //window->fillRectangle(0, 0, w*rows*2+space, w, Xwindow::White);
     window->drawString(space+rows*w, w, p2level);
+    window->drawString(0, w, p1level);
 }
 
 void Graphics::scoreupdate(){
@@ -285,6 +286,9 @@ void Graphics::scoreupdate(){
     std::string p2high  = "   Hi: " + std::to_string(g2->highscore);
     std::string p1score = "Score: " + std::to_string(g1->score);
     std::string p2score = "Score: " + std::to_string(g2->score);
+    window->fillRectangle(0, w, w*rows*2+space, w*2, Xwindow::White);
+    window->drawString(0, w*2, p1high);
+    window->drawString(0, w*3, p1score);
     window->drawString(space+rows*w, w*2, p2high);
     window->drawString(space+rows*w, w*3, p2score);
 }

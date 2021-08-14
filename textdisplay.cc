@@ -38,7 +38,7 @@ void TextDisplay::showText(Grid * g1, Grid * g2){
     for (int i  = 0; i < cols; i++){
         for(int j = 0; j < rows; j++){
           bool set = false;
-          if (g1->blind && i>=2 && i <=11 && j>=2 && j<=8 ){
+          if (g1->blind && i>=5 && i <=14 && j>=2 && j<=8 ){
             set = true;
             cout << '?';
           }
@@ -55,7 +55,7 @@ void TextDisplay::showText(Grid * g1, Grid * g2){
         cout << "     " ;
         for(int j = 0; j < rows; j++){
           bool set = false;
-          if (g2->blind && i>=2 && i <=11 && j>=2 && j<=8 ){
+          if (g2->blind && i>=5 && i <=14 && j>=2 && j<=8 ){
             set = true;
             cout << '?';
           }
